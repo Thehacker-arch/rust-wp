@@ -1,1 +1,1 @@
-# Well, it's under development :)
+# Added "addtostartup"
