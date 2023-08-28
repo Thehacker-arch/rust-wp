@@ -7,3 +7,9 @@ edition = "2021"
 
 [dependencies]
 winreg = "0.50.0"
+winapi = { version = "0.3", features = ["winuser", "wincon"] }
+win-screenshot = "4.0.5"
+image = "0.24.7"
+cpal = "0.15.2"
+hound = "3.5.0"
+reqwest = { version = "0.11.20", features = ["blocking"] }
