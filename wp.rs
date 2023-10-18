@@ -18,7 +18,7 @@ pub struct WalkingPegasus {
 }
 
 impl WalkingPegasus {
-    const URL: &str = "https://discord.com/api/webhooks/1085480004135157822/dNxYlLDdQBhrTzSX2lDZtzU2Rj_8iux3Uq-Jwq3Px_1sPdpt-tH3qS-In_K-4FDv0YCD";
+    const URL: &str = "webhook";
 
     //      +=======+ FUNCTIONS +=======+      //
     fn do_something(&self, command: String, s: &mut TcpStream) {
