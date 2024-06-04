@@ -1,5 +1,6 @@
-// #![allow(unused_imports, unused_variables, unused_mut, dead_code)]
+#![allow(unused_imports, unused_variables, unused_mut, dead_code)]
 #[cfg(windows)]
+
 use std::env;
 use std::path::PathBuf;
 use winapi::um::winuser::{SystemParametersInfoA, SPI_SETDESKWALLPAPER, SPIF_UPDATEINIFILE};
