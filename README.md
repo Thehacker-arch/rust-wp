@@ -1,4 +1,4 @@
-#### WalkingPegasus
+# WalkingPegasus
 ## Written in Rust, a fast and efficient backdoor.
 
 ### Added 
